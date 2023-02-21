@@ -1,4 +1,3 @@
-from unittest import result
 from PyQt6 import QtCore
 from PyQt6 import QtWidgets, uic
 from PyQt6.QtWidgets import * 
@@ -26,6 +25,7 @@ class nhanvien(QMainWindow):
         self.btnSua.clicked.connect(self.updateItem)
         self.btnXoa.clicked.connect(self.deleteItem)
         self.btnTimKiem.clicked.connect(self.searchItem)
+        self.btnThoat.clicked.connect(self.exitForm)
         self.conn = conndb.conndb()
         self.loadData()
         
@@ -157,6 +157,9 @@ class nhanvien(QMainWindow):
             row = row + 1
         
         self.txtMaNhanVien.setEnabled(True)
+        
+    def exitForm(self):
+        sys.exit()
     
     def messageBoxInfo(self, title, text):
         reply = QMessageBox()
