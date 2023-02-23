@@ -11,6 +11,7 @@ import numpy as np
 from datetime import date, datetime
 from keras.models import load_model  # TensorFlow is required for Keras to work
 from PIL import Image, ImageOps  # Install pillow instead of PIL
+from tinhluong import tinhluong
 
 np.set_printoptions(suppress=True)
 model = load_model("./model/keras_Model.h5", compile=False)

@@ -395,6 +395,29 @@
       </property>
      </item>
     </widget>
+    <widget class="QPushButton" name="btnLamMoi">
+     <property name="geometry">
+      <rect>
+       <x>380</x>
+       <y>10</y>
+       <width>171</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string>Làm Mới</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
@@ -557,9 +580,9 @@
     <widget class="QPushButton" name="btnThem">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>50</x>
        <y>170</y>
-       <width>141</width>
+       <width>171</width>
        <height>31</height>
       </rect>
      </property>
@@ -580,9 +603,9 @@
     <widget class="QPushButton" name="btnCapNhat">
      <property name="geometry">
       <rect>
-       <x>170</x>
+       <x>260</x>
        <y>170</y>
-       <width>141</width>
+       <width>171</width>
        <height>31</height>
       </rect>
      </property>
@@ -598,29 +621,6 @@
      </property>
      <property name="text">
       <string>Cập Nhật</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="btnLamMoi">
-     <property name="geometry">
-      <rect>
-       <x>330</x>
-       <y>170</y>
-       <width>141</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>13</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="cursor">
-      <cursorShape>PointingHandCursor</cursorShape>
-     </property>
-     <property name="text">
-      <string>Làm Mới</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="txtMaNhanVien">

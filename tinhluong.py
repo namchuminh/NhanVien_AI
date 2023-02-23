@@ -6,6 +6,7 @@ from PyQt6.QtCore import Qt
 import sys, os
 import conndb 
 import shutil
+from datetime import date, datetime
 
 class tinhluong(QMainWindow):
     def __init__(self, widget):
@@ -32,9 +33,10 @@ class tinhluong(QMainWindow):
         self.windowNhanVien.clicked.connect(self.switchNhanVien)
         self.windowChamCong.clicked.connect(self.switchChamCong)
         self.conn = conndb.conndb()
+        
         self.loadData()
         self.loadMaNhanVien()
-        
+            
     def addItem(self):
         if self.txtMaNhanVien.text() == "":
             self.messageBoxInfo("Thông Báo", "Vui lòng nhập mã nhân viên cần thêm!")
@@ -176,7 +178,7 @@ class tinhluong(QMainWindow):
         Thuong = float(result[0][5])
         Phat = float(result[0][6])
         HeSoLuong = float(result[0][7])
-        TongTien = 284599.0 #(SoCong * HeSoLuong) + Thuong - Phat
+        TongTien = (SoCong * HeSoLuong) + Thuong - Phat
         
         if len(str(TongTien)) == 4:
             TongTien = str(TongTien) + "00"
@@ -193,7 +195,7 @@ class tinhluong(QMainWindow):
         self.lblThuong.setText(str(Thuong))
         self.lblPhat.setText(str(Phat))
         self.lblHeSoLuong.setText(str(HeSoLuong))
-        self.lblTongTien.setText(TongTien)
+        self.lblTongTien.setText(str(TongTien))
         
     def loadData(self):
         strsql = "SELECT nhanvien.MaNhanVien AS MaNhanVien, nhanvien.TenNhanVien AS TenNhanVien, nhanvien.GioiTinh AS GioiTinh, nhanvien.ChucVu AS ChucVu, SUM(tinhluong.SoCong) AS SoCong, tinhluong.Thuong AS Thuong, tinhluong.Phat AS Phat, tinhluong.HeSoLuong, tinhluong.ThoiGian FROM nhanvien, tinhluong WHERE nhanvien.MaNhanVien = tinhluong.MaNhanVien AND MONTH(tinhluong.ThoiGian) = MONTH(CURDATE()) AND YEAR(tinhluong.ThoiGian) = YEAR(CURDATE()) GROUP BY tinhluong.MaNhanVien;"
@@ -215,8 +217,10 @@ class tinhluong(QMainWindow):
             self.tblTinhLuong.setItem(row, 7, QtWidgets.QTableWidgetItem(str(user[7])))
             self.tblTinhLuong.setItem(row, 8, QtWidgets.QTableWidgetItem(Thang))
             row = row + 1
-    
-    
+        today = date.today()
+        cbThang = str(today).split('-')[1] if int(str(today).split('-')[1]) >= 10 else str(today).split('-')[1][-1]
+        self.cbChonThang2.setCurrentText("Tháng " + cbThang)
+
     def exitForm(self):
         sys.exit()
         
