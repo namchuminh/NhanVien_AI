@@ -11,9 +11,11 @@ from tinhluong import tinhluong
 app = QApplication(sys.argv)
 widget = QtWidgets.QStackedWidget()
 
-nhanvien = nhanvien()
-tinhluong = tinhluong()
-chamcong = chamcong()
+nhanvien = nhanvien(widget)
+tinhluong = tinhluong(widget)
+chamcong = chamcong(widget)
+
+
 
 widget.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
 widget.addWidget(nhanvien)
@@ -21,7 +23,7 @@ widget.addWidget(tinhluong)
 widget.addWidget(chamcong)
 
 
-widget.setCurrentIndex(2)
+widget.setCurrentIndex(0)
 widget.setFixedWidth(930)
 widget.setFixedHeight(661)
 widget.show()

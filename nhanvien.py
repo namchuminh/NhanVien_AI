@@ -8,9 +8,10 @@ import conndb
 import shutil
 
 class nhanvien(QMainWindow):
-    def __init__(self):
+    def __init__(self, widget):
         super(nhanvien, self).__init__()
         uic.loadUi("nhanvien.ui",self)
+        self.widget = widget
         self.image= ""
         self.pixmap = QPixmap("./img/avatar/user.png")
         self.lblAvatar.setPixmap(self.pixmap)
@@ -26,8 +27,12 @@ class nhanvien(QMainWindow):
         self.btnXoa.clicked.connect(self.deleteItem)
         self.btnTimKiem.clicked.connect(self.searchItem)
         self.btnThoat.clicked.connect(self.exitForm)
+        self.btnThoat.clicked.connect(self.exitForm)
+        self.windowTinhLuong.clicked.connect(self.switchTinhLuong)
+        self.windowChamCong.clicked.connect(self.switchChamCong)
         self.conn = conndb.conndb()
         self.loadData()
+        
         
     def addItem(self):
         if self.txtMaNhanVien.text() == "" or self.txtTenNhanVien.text() == "":
@@ -43,6 +48,7 @@ class nhanvien(QMainWindow):
         strsql = "INSERT INTO `nhanvien`(`MaNhanVien`, `TenNhanVien`, `GioiTinh`, `ChucVu`, `Avatar`) VALUES ('{0}','{1}','{2}','{3}', '{4}')".format(MaNhanVien, HoTen, GioiTinh, ChucVu, Avatar)
         self.conn.queryExecute(strsql)
         
+        self.messageBoxInfo("Thông báo", "Thêm Nhân Viên Thành công!")
         self.resetTextBox()
         self.loadData()
     
@@ -62,6 +68,7 @@ class nhanvien(QMainWindow):
         strsql = f"UPDATE `nhanvien` SET `TenNhanVien`='{HoTen}',`GioiTinh`='{GioiTinh}',`ChucVu`='{ChucVu}',`Avatar`='{Avatar}' WHERE `MaNhanVien`='{MaNhanVien}'"
         self.conn.queryExecute(strsql)
         
+        self.messageBoxInfo("Thông báo", "Cập Nhật Nhân Viên Thành công!")
         self.resetTextBox()
         self.loadData()
     
@@ -73,6 +80,7 @@ class nhanvien(QMainWindow):
         strsql = f"DELETE FROM `nhanvien` WHERE MaNhanVien = '{MaNhanVien}'"
         self.conn.queryExecute(strsql)
         
+        self.messageBoxInfo("Thông báo", "Xóa Nhân Viên Thành công!")
         self.resetTextBox()
         self.loadData()
     
@@ -168,6 +176,13 @@ class nhanvien(QMainWindow):
         reply.setStandardButtons(QMessageBox.StandardButton.Ok)
 
         x = reply.exec()
+    
+    def switchTinhLuong(self):
+        self.widget.setCurrentIndex(self.widget.currentIndex() + 1)
+    
+    def switchChamCong(self):
+        self.widget.setCurrentIndex(self.widget.currentIndex() + 2)
+
     
         
 

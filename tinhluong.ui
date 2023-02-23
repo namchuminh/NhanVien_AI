@@ -152,7 +152,7 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="windowNhanVien">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -185,7 +185,7 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_2">
+    <widget class="QPushButton" name="windowTinhLuong">
      <property name="geometry">
       <rect>
        <x>140</x>
@@ -218,7 +218,7 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_3">
+    <widget class="QPushButton" name="windowChamCong">
      <property name="geometry">
       <rect>
        <x>280</x>

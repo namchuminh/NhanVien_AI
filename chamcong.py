@@ -37,11 +37,14 @@ class VideoThread(QThread):
 
 
 class chamcong(QMainWindow):
-    def __init__(self):
+    def __init__(self, widget):
         super(chamcong, self).__init__()
         uic.loadUi("chamcong.ui",self)
+        self.widget = widget
         self.btnThoat.clicked.connect(self.exitForm)
         self.btnChamCong.clicked.connect(self.checkMark)
+        self.windowNhanVien.clicked.connect(self.switchNhanVien)
+        self.windowTinhLuong.clicked.connect(self.switchTinhLuong)
         self.conn = conndb.conndb()
         self.loadData()
         
@@ -181,6 +184,12 @@ class chamcong(QMainWindow):
         
     def exitForm(self):
         sys.exit()
+        
+    def switchNhanVien(self):
+        self.widget.setCurrentIndex(self.widget.currentIndex() - 2)
+    
+    def switchTinhLuong(self):
+        self.widget.setCurrentIndex(self.widget.currentIndex() - 1)
         
     
         

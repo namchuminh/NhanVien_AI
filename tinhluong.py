@@ -8,9 +8,10 @@ import conndb
 import shutil
 
 class tinhluong(QMainWindow):
-    def __init__(self):
+    def __init__(self, widget):
         super(tinhluong, self).__init__()
         uic.loadUi("tinhluong.ui",self)
+        self.widget = widget
         self.tblTinhLuong.setColumnWidth(0,103)
         self.tblTinhLuong.setColumnWidth(1,103)
         self.tblTinhLuong.setColumnWidth(2,103)
@@ -28,6 +29,8 @@ class tinhluong(QMainWindow):
         self.btnXemTheoThang.clicked.connect(self.viewByMonth)
         self.cbMaNhanVien.activated.connect(self.chooseMaNhanVien)
         self.btnTinhLuong.clicked.connect(self.sumWage)
+        self.windowNhanVien.clicked.connect(self.switchNhanVien)
+        self.windowChamCong.clicked.connect(self.switchChamCong)
         self.conn = conndb.conndb()
         self.loadData()
         self.loadMaNhanVien()
@@ -224,3 +227,9 @@ class tinhluong(QMainWindow):
         reply.setStandardButtons(QMessageBox.StandardButton.Ok)
 
         x = reply.exec()
+    
+    def switchNhanVien(self):
+        self.widget.setCurrentIndex(self.widget.currentIndex() - 1)
+    
+    def switchChamCong(self):
+        self.widget.setCurrentIndex(self.widget.currentIndex() + 1)
