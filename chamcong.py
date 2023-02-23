@@ -135,7 +135,6 @@ class chamcong(QMainWindow):
                         strsql_insert = f"INSERT INTO `tinhluong`(`MaNhanVien`, `SoCong`, `Thuong`, `Phat`, `HeSoLuong`) VALUES ('{MaNhanVien}', 1, {Thuong}, {Phat}, {HeSoLuong})"
                         result_insert = self.conn.queryExecute(strsql_insert)
                         self.messageBoxInfo("Thông báo!", f"Chấm công cho nhân viên: {TenNhanVien} thành công!!")
-                os.remove(os.path.dirname(os.path.realpath(__file__)) + '/img/checkMark/faceCheck.jpg')
         except:
             dir_path = os.path.dirname(os.path.realpath(__file__))
             pixmap = QPixmap(dir_path + '\\' + 'img\\avatar\\user.png')
@@ -147,7 +146,6 @@ class chamcong(QMainWindow):
             self.lblNgayChamCong.setText('')
             self.lblThoiGian.setText('')
             self.lblTrangThai.setText('')
-            os.remove(os.path.dirname(os.path.realpath(__file__)) + '/img/checkMark/faceCheck.jpg')
             self.messageBoxInfo("Thông báo!", "Không nhận dạng được khuân mặt!")
             return
     
