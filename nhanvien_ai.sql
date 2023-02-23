@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2023 at 08:12 PM
+-- Generation Time: Feb 23, 2023 at 01:46 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -56,7 +56,7 @@ CREATE TABLE `tinhluong` (
   `SoCong` int(11) NOT NULL DEFAULT 0,
   `Thuong` int(11) NOT NULL DEFAULT 0,
   `Phat` int(11) NOT NULL DEFAULT 0,
-  `HeSoLuong` float NOT NULL DEFAULT 0,
+  `HeSoLuong` int(11) NOT NULL DEFAULT 0,
   `ThoiGian` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -65,24 +65,25 @@ CREATE TABLE `tinhluong` (
 --
 
 INSERT INTO `tinhluong` (`MaTinhLuong`, `MaNhanVien`, `SoCong`, `Thuong`, `Phat`, `HeSoLuong`, `ThoiGian`) VALUES
-(1, 'NV01', 1, 100, 200, 4, '2023-02-21'),
-(2, 'NV01', 1, 100, 200, 4, '2023-02-21'),
-(3, 'NV02', 1, 0, 0, 2.5, '2023-02-21'),
-(5, 'NV03', 0, 0, 0, 1.2, '2023-02-22'),
-(6, 'NV01', 1, 200, 0, 2.5, '2023-01-01'),
-(7, 'NV01', 1, 200, 0, 2.5, '2023-01-02'),
-(8, 'NV01', 1, 200, 0, 2.5, '2023-01-03'),
-(9, 'NV01', 1, 200, 0, 2.5, '2023-01-04'),
-(10, 'NV01', 1, 0, 0, 2.5, '2023-01-05'),
-(11, 'NV02', 1, 100, 0, 2, '2023-01-01'),
-(12, 'NV02', 1, 100, 0, 2, '2023-01-02'),
-(13, 'NV02', 1, 100, 0, 2, '2023-01-03'),
-(14, 'NV02', 1, 100, 0, 2, '2023-01-04'),
-(15, 'NV03', 1, 50, 0, 1.5, '2023-01-01'),
-(16, 'NV03', 1, 50, 0, 1.5, '2023-01-02'),
-(17, 'NV03', 1, 50, 0, 1.5, '2023-01-03'),
-(18, 'NV03', 1, 50, 0, 1.5, '2023-01-04'),
-(19, 'NV03', 1, 50, 0, 1.5, '2023-01-05');
+(1, 'NV01', 1, 100, 200, 400, '2023-02-21'),
+(2, 'NV01', 1, 100, 200, 400, '2023-02-21'),
+(3, 'NV02', 1, 0, 0, 250, '2023-02-21'),
+(5, 'NV03', 0, 0, 0, 200, '2023-02-22'),
+(6, 'NV01', 1, 200, 0, 350, '2023-01-01'),
+(7, 'NV01', 1, 200, 0, 350, '2023-01-02'),
+(8, 'NV01', 1, 200, 0, 350, '2023-01-03'),
+(9, 'NV01', 1, 200, 0, 350, '2023-01-04'),
+(10, 'NV01', 1, 0, 0, 350, '2023-01-05'),
+(11, 'NV02', 1, 100, 0, 250, '2023-01-01'),
+(12, 'NV02', 1, 100, 0, 250, '2023-01-02'),
+(13, 'NV02', 1, 100, 0, 250, '2023-01-03'),
+(14, 'NV02', 1, 100, 0, 250, '2023-01-04'),
+(15, 'NV03', 1, 50, 0, 200, '2023-01-01'),
+(16, 'NV03', 1, 50, 0, 200, '2023-01-02'),
+(17, 'NV03', 1, 50, 0, 200, '2023-01-03'),
+(18, 'NV03', 1, 50, 0, 200, '2023-01-04'),
+(19, 'NV03', 1, 50, 0, 200, '2023-01-05'),
+(20, 'NV01', 1, 0, 0, 350, '2023-02-23');
 
 --
 -- Indexes for dumped tables
@@ -102,7 +103,7 @@ ALTER TABLE `tinhluong`
 -- AUTO_INCREMENT for table `tinhluong`
 --
 ALTER TABLE `tinhluong`
-  MODIFY `MaTinhLuong` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `MaTinhLuong` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
