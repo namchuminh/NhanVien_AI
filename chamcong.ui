@@ -181,11 +181,14 @@
      <string/>
     </property>
     <widget class="QPushButton" name="btnChamCong">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
-       <x>90</x>
+       <x>230</x>
        <y>20</y>
-       <width>211</width>
+       <width>191</width>
        <height>51</height>
       </rect>
      </property>
@@ -202,7 +205,7 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>360</x>
+       <x>450</x>
        <y>10</y>
        <width>171</width>
        <height>31</height>
@@ -228,7 +231,7 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>360</x>
+       <x>450</x>
        <y>50</y>
        <width>171</width>
        <height>31</height>
@@ -241,6 +244,41 @@
      </property>
      <property name="readOnly">
       <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnMoCamera">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>181</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string>MỞ CAMERA</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnDongCamera">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>50</y>
+       <width>181</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string>ĐÓNG CAMERA</string>
      </property>
     </widget>
    </widget>

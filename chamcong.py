@@ -21,11 +21,12 @@ data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
 
 class VideoThread(QThread):
     change_pixmap_signal = pyqtSignal(np.ndarray)
-    
+    _go = True
     def run(self):
+        self._go = True
         # capture from web cam
         cap = cv2.VideoCapture(0)
-        while True:
+        while self._go:
             ret, cv_img = cap.read()
             if ret:
                 gray_img = cv2.cvtColor(cv_img, cv2.COLOR_BGR2GRAY)
@@ -35,7 +36,9 @@ class VideoThread(QThread):
                     cv2.imwrite(os.path.dirname(os.path.realpath(__file__)) + '/img/checkMark/faceCheck.jpg', face)
                 self.change_pixmap_signal.emit(cv_img)
                 
-
+    def stop(self):
+        self._go = False
+        
 
 class chamcong(QMainWindow):
     def __init__(self, widget):
@@ -46,19 +49,16 @@ class chamcong(QMainWindow):
         self.btnChamCong.clicked.connect(self.checkMark)
         self.windowNhanVien.clicked.connect(self.switchNhanVien)
         self.windowTinhLuong.clicked.connect(self.switchTinhLuong)
+        self.btnMoCamera.clicked.connect(self.openCamera)
+        self.btnDongCamera.clicked.connect(self.closeCamera)
         self.conn = conndb.conndb()
         self.loadData()
         
         self.disply_width = 641
         self.display_height = 491
-        
         # create the video capture thread
         self.thread = VideoThread()
-        # connect its signal to the update_image slot
-        self.thread.change_pixmap_signal.connect(self.update_image)
-        # start the thread
-        self.thread.start()
-        
+
     
     def checkMark(self):
         try:
@@ -173,6 +173,8 @@ class chamcong(QMainWindow):
         self.txtNgayHienTai.setText('Ngày: ' + Ngay)
         self.txtThoiGianHienTai.setText('Thời gian: ' + ThoiGian)
         
+        
+        
     def messageBoxInfo(self, title, text):
         reply = QMessageBox()
         reply.setWindowTitle(title)
@@ -190,5 +192,18 @@ class chamcong(QMainWindow):
     def switchTinhLuong(self):
         self.widget.setCurrentIndex(self.widget.currentIndex() - 1)
         
-    
+    def openCamera(self):
+        # connect its signal to the update_image slot
+        self.thread.change_pixmap_signal.connect(self.update_image)
+        # start the thread
+        self.thread.start()
         
+        self.btnMoCamera.setEnabled(False)
+        self.btnDongCamera.setEnabled(True)
+        self.btnChamCong.setEnabled(True)
+        
+    def closeCamera(self):
+        self.thread.stop()
+        self.btnMoCamera.setEnabled(True)
+        self.btnDongCamera.setEnabled(False)
+        self.btnChamCong.setEnabled(False)
