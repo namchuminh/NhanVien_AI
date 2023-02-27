@@ -141,6 +141,8 @@ class tinhluong(QMainWindow):
         self.txtMaNhanVien.setEnabled(True)
         self.cbChonThang3.setEnabled(False)
         
+        self.loadData()
+        
     def loadMaNhanVien(self):
         strsql = "SELECT DISTINCT tinhluong.MaNhanVien FROM tinhluong;"
         result = self.conn.queryResult(strsql)
