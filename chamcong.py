@@ -38,7 +38,6 @@ class VideoThread(QThread):
                 
     def stop(self):
         self._go = False
-        
 
 class chamcong(QMainWindow):
     def __init__(self, widget):
@@ -98,22 +97,6 @@ class chamcong(QMainWindow):
                 self.lblTrangThai.setText('')
                 self.messageBoxInfo("Thông báo!", "Nhân viên không tồn tại!")
             else:
-                today = date.today()
-                now = datetime.now()
-                
-                Ngay = str(today).split('-')[2] + '/' + str(today).split('-')[1] + '/' + str(today).split('-')[0]
-                ThoiGian = str(now).split(" ")[1].split(".")[0]
-                
-                dir_path = os.path.dirname(os.path.realpath(__file__))
-                pixmap = QPixmap(dir_path + '\\' + 'img\\avatar\\' + result[0][4])
-                self.lblAvatar.setPixmap(pixmap)
-                self.lblMaNhanVien.setText(str(result[0][0]))
-                self.lblTenNhanVien.setText(str(result[0][1]))
-                self.lblGioiTinh.setText(str(result[0][2]))
-                self.lblChucVu.setText(str(result[0][3]))
-                self.lblNgayChamCong.setText(Ngay)
-                self.lblThoiGian.setText(ThoiGian)
-                self.lblTrangThai.setText('Đã Chấm Công')
                 
                 strsql_select = f"SELECT * FROM tinhluong WHERE MaNhanVien = '{MaNhanVien}' ORDER BY MaTinhLuong DESC"
                 result_select = self.conn.queryResult(strsql_select)
@@ -132,9 +115,62 @@ class chamcong(QMainWindow):
                     if int(result_check[0][0]) == 1:
                         self.messageBoxInfo("Thông báo!", f"Nhân viên {TenNhanVien} đã được chấm công trước đó!")
                     else:
-                        strsql_insert = f"INSERT INTO `tinhluong`(`MaNhanVien`, `SoCong`, `Thuong`, `Phat`, `HeSoLuong`) VALUES ('{MaNhanVien}', 1, {Thuong}, {Phat}, {HeSoLuong})"
-                        result_insert = self.conn.queryExecute(strsql_insert)
-                        self.messageBoxInfo("Thông báo!", f"Chấm công cho nhân viên: {TenNhanVien} thành công!!")
+                        
+                        strsql_select_chamcong = f"SELECT * FROM chamcong WHERE MaNhanVien = '{MaNhanVien}' AND DaChamCong = 1 AND ThoiGian = CURDATE();"
+                        result_select_chamcong = self.conn.queryResult(strsql_select_chamcong)
+                        
+                        print(len(result_select_chamcong))
+                        
+                        if len(result_select_chamcong) == 0:
+                            
+                            strsql_insert = f"INSERT INTO `chamcong`(`MaNhanVien`, `DaChamCong`) VALUES ('{MaNhanVien}',1)"
+                            result_insert = self.conn.queryExecute(strsql_insert)
+                            
+                            today = date.today()
+                            now = datetime.now()
+                            
+                            Ngay = str(today).split('-')[2] + '/' + str(today).split('-')[1] + '/' + str(today).split('-')[0]
+                            ThoiGian = str(now).split(" ")[1].split(".")[0]
+                            
+                            dir_path = os.path.dirname(os.path.realpath(__file__))
+                            pixmap = QPixmap(dir_path + '\\' + 'img\\avatar\\' + result[0][4])
+                            self.lblAvatar.setPixmap(pixmap)
+                            self.lblMaNhanVien.setText(str(result[0][0]))
+                            self.lblTenNhanVien.setText(str(result[0][1]))
+                            self.lblGioiTinh.setText(str(result[0][2]))
+                            self.lblChucVu.setText(str(result[0][3]))
+                            self.lblNgayChamCong.setText(Ngay)
+                            self.lblThoiGian.setText(ThoiGian)
+                            self.lblTrangThai.setText('Đã Chấm Lần 1')
+                        
+                            self.messageBoxInfo("Thông báo!", f"Chấm công lần 1 nhân viên: {TenNhanVien} thành công!!")
+
+                        else:
+                            MaChamCong = result_select[0][0]
+                            strsql_update = f"UPDATE `chamcong` SET `DaChamCong`= {2} WHERE `MaChamCong`='{MaChamCong}'"
+                            result_update = self.conn.queryExecute(strsql_update)
+
+                            strsql_insert = f"INSERT INTO `tinhluong`(`MaNhanVien`, `SoCong`, `Thuong`, `Phat`, `HeSoLuong`) VALUES ('{MaNhanVien}', 1, {Thuong}, {Phat}, {HeSoLuong})"
+                            result_insert = self.conn.queryExecute(strsql_insert)
+        
+                            today = date.today()
+                            now = datetime.now()
+                            
+                            Ngay = str(today).split('-')[2] + '/' + str(today).split('-')[1] + '/' + str(today).split('-')[0]
+                            ThoiGian = str(now).split(" ")[1].split(".")[0]
+                            
+                            dir_path = os.path.dirname(os.path.realpath(__file__))
+                            pixmap = QPixmap(dir_path + '\\' + 'img\\avatar\\' + result[0][4])
+                            self.lblAvatar.setPixmap(pixmap)
+                            self.lblMaNhanVien.setText(str(result[0][0]))
+                            self.lblTenNhanVien.setText(str(result[0][1]))
+                            self.lblGioiTinh.setText(str(result[0][2]))
+                            self.lblChucVu.setText(str(result[0][3]))
+                            self.lblNgayChamCong.setText(Ngay)
+                            self.lblThoiGian.setText(ThoiGian)
+                            self.lblTrangThai.setText('Đã Chấm Lần 2')
+                        
+                            self.messageBoxInfo("Thông báo!", f"Chấm công lần 2 nhân viên: {TenNhanVien} thành công!!")
         except:
             dir_path = os.path.dirname(os.path.realpath(__file__))
             pixmap = QPixmap(dir_path + '\\' + 'img\\avatar\\user.png')
