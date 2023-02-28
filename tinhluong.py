@@ -142,6 +142,7 @@ class tinhluong(QMainWindow):
         self.cbChonThang3.setEnabled(False)
         
         self.loadData()
+        self.loadMaNhanVien()
         
     def loadMaNhanVien(self):
         strsql = "SELECT DISTINCT tinhluong.MaNhanVien FROM tinhluong;"
