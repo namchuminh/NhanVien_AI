@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2023 at 12:00 PM
+-- Generation Time: Feb 28, 2023 at 05:55 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -39,7 +39,7 @@ CREATE TABLE `chamcong` (
 --
 
 INSERT INTO `chamcong` (`MaChamCong`, `MaNhanVien`, `DaChamCong`, `ThoiGian`) VALUES
-(11, 'NV01', 1, '2023-02-27');
+(14, 'NV01', 1, '2023-02-28');
 
 -- --------------------------------------------------------
 
@@ -77,34 +77,27 @@ CREATE TABLE `tinhluong` (
   `Thuong` int(11) NOT NULL DEFAULT 0,
   `Phat` int(11) NOT NULL DEFAULT 0,
   `HeSoLuong` int(11) NOT NULL DEFAULT 0,
-  `ThoiGian` date NOT NULL DEFAULT current_timestamp()
+  `ThoiGian` date NOT NULL DEFAULT current_timestamp(),
+  `TrangThai` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tinhluong`
 --
 
-INSERT INTO `tinhluong` (`MaTinhLuong`, `MaNhanVien`, `SoCong`, `Thuong`, `Phat`, `HeSoLuong`, `ThoiGian`) VALUES
-(1, 'NV01', 1, 100, 200, 400, '2023-02-21'),
-(2, 'NV01', 1, 100, 200, 400, '2023-02-21'),
-(3, 'NV02', 1, 0, 0, 300, '2023-02-21'),
-(5, 'NV03', 0, 0, 0, 200, '2023-02-22'),
-(6, 'NV01', 1, 200, 0, 350, '2023-01-01'),
-(7, 'NV01', 1, 200, 0, 350, '2023-01-02'),
-(8, 'NV01', 1, 200, 0, 350, '2023-01-03'),
-(9, 'NV01', 1, 200, 0, 350, '2023-01-04'),
-(10, 'NV01', 1, 0, 0, 350, '2023-01-05'),
-(11, 'NV02', 1, 100, 0, 250, '2023-01-01'),
-(12, 'NV02', 1, 100, 0, 250, '2023-01-02'),
-(13, 'NV02', 1, 100, 0, 250, '2023-01-03'),
-(14, 'NV02', 1, 100, 0, 250, '2023-01-04'),
-(15, 'NV03', 1, 50, 0, 200, '2023-01-01'),
-(16, 'NV03', 1, 50, 0, 200, '2023-01-02'),
-(17, 'NV03', 1, 50, 0, 200, '2023-01-03'),
-(18, 'NV03', 1, 50, 0, 200, '2023-01-04'),
-(25, 'NV01', 1, 0, 0, 350, '2023-02-23'),
-(26, 'NV01', 1, 0, 0, 350, '2023-02-24'),
-(30, 'NV01', 1, 0, 0, 350, '2023-02-27');
+INSERT INTO `tinhluong` (`MaTinhLuong`, `MaNhanVien`, `SoCong`, `Thuong`, `Phat`, `HeSoLuong`, `ThoiGian`, `TrangThai`) VALUES
+(3, 'NV02', 1, 0, 0, 300, '2023-02-21', 0),
+(5, 'NV03', 0, 0, 0, 200, '2023-02-22', 0),
+(11, 'NV02', 1, 100, 0, 250, '2023-01-01', 0),
+(12, 'NV02', 1, 100, 0, 250, '2023-01-02', 0),
+(13, 'NV02', 1, 100, 0, 250, '2023-01-03', 0),
+(14, 'NV02', 1, 100, 0, 250, '2023-01-04', 0),
+(15, 'NV03', 1, 50, 0, 200, '2023-01-01', 0),
+(16, 'NV03', 1, 50, 0, 200, '2023-01-02', 0),
+(17, 'NV03', 1, 50, 0, 200, '2023-01-03', 0),
+(18, 'NV03', 1, 50, 0, 200, '2023-01-04', 0),
+(35, 'NV01', 0, 0, 0, 500, '2023-02-28', 0),
+(36, 'NV01', 1, 0, 0, 500, '2023-02-28', 1);
 
 --
 -- Indexes for dumped tables
@@ -114,13 +107,21 @@ INSERT INTO `tinhluong` (`MaTinhLuong`, `MaNhanVien`, `SoCong`, `Thuong`, `Phat`
 -- Indexes for table `chamcong`
 --
 ALTER TABLE `chamcong`
-  ADD PRIMARY KEY (`MaChamCong`);
+  ADD PRIMARY KEY (`MaChamCong`),
+  ADD KEY `MaNhanVien` (`MaNhanVien`);
+
+--
+-- Indexes for table `nhanvien`
+--
+ALTER TABLE `nhanvien`
+  ADD PRIMARY KEY (`MaNhanVien`);
 
 --
 -- Indexes for table `tinhluong`
 --
 ALTER TABLE `tinhluong`
-  ADD PRIMARY KEY (`MaTinhLuong`);
+  ADD PRIMARY KEY (`MaTinhLuong`),
+  ADD KEY `MaNhanVien` (`MaNhanVien`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -130,13 +131,29 @@ ALTER TABLE `tinhluong`
 -- AUTO_INCREMENT for table `chamcong`
 --
 ALTER TABLE `chamcong`
-  MODIFY `MaChamCong` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `MaChamCong` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tinhluong`
 --
 ALTER TABLE `tinhluong`
-  MODIFY `MaTinhLuong` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `MaTinhLuong` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `chamcong`
+--
+ALTER TABLE `chamcong`
+  ADD CONSTRAINT `chamcong_ibfk_1` FOREIGN KEY (`MaNhanVien`) REFERENCES `nhanvien` (`MaNhanVien`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tinhluong`
+--
+ALTER TABLE `tinhluong`
+  ADD CONSTRAINT `tinhluong_ibfk_1` FOREIGN KEY (`MaNhanVien`) REFERENCES `nhanvien` (`MaNhanVien`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
