@@ -1,4 +1,3 @@
-from distutils.command import check
 from PyQt6 import QtCore, QtGui
 from PyQt6 import QtWidgets, uic
 from PyQt6.QtWidgets import * 
