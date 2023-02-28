@@ -107,7 +107,7 @@ class chamcong(QMainWindow):
                     Phat = int(result_select[0][4])
                     HeSoLuong = int(result_select[0][5])
                     
-                    strsql_check = f"SELECT COUNT(*) FROM tinhluong WHERE MaNhanVien = '{MaNhanVien}' AND ThoiGian = CURDATE();"
+                    strsql_check = f"SELECT COUNT(*) FROM tinhluong WHERE MaNhanVien = '{MaNhanVien}' AND TrangThai = 1 AND ThoiGian = CURDATE();"
                     result_check = self.conn.queryResult(strsql_check)
                     
                     
@@ -148,9 +148,17 @@ class chamcong(QMainWindow):
                             MaChamCong = result_select[0][0]
                             strsql_update = f"UPDATE `chamcong` SET `DaChamCong`= {2} WHERE `MaChamCong`='{MaChamCong}'"
                             result_update = self.conn.queryExecute(strsql_update)
-
-                            strsql_insert = f"INSERT INTO `tinhluong`(`MaNhanVien`, `SoCong`, `Thuong`, `Phat`, `HeSoLuong`) VALUES ('{MaNhanVien}', 1, {Thuong}, {Phat}, {HeSoLuong})"
-                            result_insert = self.conn.queryExecute(strsql_insert)
+                            
+                            strsql_select_chamcong = f"SELECT * FROM chamcong WHERE MaNhanVien = '{MaNhanVien}' AND DaChamCong = 0 AND ThoiGian = CURDATE();"
+                            result_select_chamcong = self.conn.queryResult(strsql_select_chamcong)
+                            
+                            if len(result_select_chamcong) == 0:
+                                strsql_insert = f"INSERT INTO `tinhluong`(`MaNhanVien`, `SoCong`, `Thuong`, `Phat`, `HeSoLuong`, `TrangThai`) VALUES ('{MaNhanVien}', 1, {Thuong}, {Phat}, {HeSoLuong}, 1)"
+                                result_insert = self.conn.queryExecute(strsql_insert)
+                            else:
+                                strsql_update = f"UPDATE `tinhluong` SET `SoCong`= 1,`TrangThai`= 1 WHERE `MaNhanVien`='{MaNhanVien}' AND `ThoiGian`= CURDATE();"
+                                result_update = self.conn.queryExecute(strsql_update)
+                            
         
                             today = date.today()
                             now = datetime.now()
