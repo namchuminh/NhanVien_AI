@@ -145,21 +145,35 @@ class tinhluong(QMainWindow):
         self.loadMaNhanVien()
         
     def loadMaNhanVien(self):
-        strsql = "SELECT DISTINCT tinhluong.MaNhanVien FROM tinhluong;"
-        result = self.conn.queryResult(strsql)
-        
-        MaNhanVien = result[0][0]
-        
-        self.cbMaNhanVien.clear()
-        for manhanvien in result:
-            self.cbMaNhanVien.addItem(str(manhanvien[0]))
-        
-        strsql_month = f"SELECT DISTINCT MONTH(tinhluong.ThoiGian) FROM tinhluong WHERE tinhluong.MaNhanVien = '{MaNhanVien}' AND YEAR(ThoiGian) = YEAR(CURDATE());"
-        result_month = self.conn.queryResult(strsql_month)
-        
-        self.cbChonThang.clear()
-        for month in result_month:
-            self.cbChonThang.addItem("Tháng " + str(month[0]))
+        try:
+            strsql = "SELECT DISTINCT tinhluong.MaNhanVien FROM tinhluong;"
+            result = self.conn.queryResult(strsql)
+            
+            MaNhanVien = result[0][0]
+            
+            self.cbMaNhanVien.clear()
+            for manhanvien in result:
+                self.cbMaNhanVien.addItem(str(manhanvien[0]))
+            
+            strsql_month = f"SELECT DISTINCT MONTH(tinhluong.ThoiGian) FROM tinhluong WHERE tinhluong.MaNhanVien = '{MaNhanVien}' AND YEAR(ThoiGian) = YEAR(CURDATE());"
+            result_month = self.conn.queryResult(strsql_month)
+            
+            self.cbChonThang.clear()
+            
+            for month in result_month:
+                self.cbChonThang.addItem("Tháng " + str(month[0]))
+            
+            self.cbMaNhanVien.setEnabled(True)
+            self.cbChonThang.setEnabled(True)
+            self.btnTinhLuong.setEnabled(True)
+        except:
+            self.cbMaNhanVien.clear()
+            self.cbMaNhanVien.addItem("--Không có nhân viên--")
+            self.cbMaNhanVien.setEnabled(False)
+            self.cbChonThang.clear()
+            self.cbChonThang.addItem("--Không có tháng--")
+            self.cbChonThang.setEnabled(False)
+            self.btnTinhLuong.setEnabled(False)
         
     def chooseMaNhanVien(self):
         MaNhanVien = self.cbMaNhanVien.currentText()
